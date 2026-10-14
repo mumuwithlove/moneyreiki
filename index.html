@@ -350,6 +350,12 @@
     color: var(--ink-soft);
   }
 
+  .payment-note {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
   .slot-day {
     font-size: 13.5px;
     font-weight: 600;
@@ -697,7 +703,7 @@
             <label class="slot-chip"><input type="checkbox" name="slot" value="週六 19:30">晚上 7:30</label>
           </div>
         </div>
-        <p class="slot-note">如果這些時間無法配合，歡迎跟我說你方便的時間，我可以盡量安排，感恩。</p>
+        <p class="slot-note">如果以上時間無法配合，歡迎在下方留言欄跟我說你方便的時間，我會盡量安排，感恩。</p>
       </div>
 
       <div class="field">
@@ -712,19 +718,16 @@
       </div>
 
       <div class="field">
-        <label class="field-label" for="f-note">想跟小沐分享的細節（選填）</label>
-        <textarea id="f-note" name="note" placeholder="想多說一點的心情或狀況，都可以在這裡告訴小沐"></textarea>
+        <label class="field-label" for="f-note">跟小沐分享細節（選填）</label>
+        <textarea id="f-note" name="note" placeholder="請描述一些金錢為你帶來的狀況和感受，例如：焦慮的點是什麼？什麼讓你緊張、卡住？哪些事情停滯不前？帶給你恐懼不安的原因？⋯等等；任何你覺察到的都可以，我們會在進行金錢靈氣時，清理淨化你所遇到的情緒和狀況。"></textarea>
       </div>
 
       <div class="field">
-        <label class="field-label">付款方式 <span class="required-mark">*</span></label>
-        <div class="checks">
-          <label class="check-item"><input type="radio" name="payment" value="匯款" required>匯款</label>
-          <label class="check-item"><input type="radio" name="payment" value="LINE Pay">LINE Pay</label>
-        </div>
+        <label class="field-label">付款方式</label>
+        <p class="payment-note">匯款帳號：永豐銀行（807）19801800669466</p>
       </div>
 
-      <p class="form-sub" style="margin:-6px 0 20px;">匯款帳號：永豐銀行（807）19801800669466。選擇 LINE Pay 的話，小沐確認預約後會透過 LINE 提供付款連結。</p>
+      <p class="form-sub" style="margin:-6px 0 20px;">送出預約後，資訊會自動複製好，點一下開啟 LINE、貼上傳送給小沐，就完成預約了！跟著畫面上的指示點一點，輕輕鬆鬆就搞定～</p>
 
       <button type="submit" class="submit-btn">送出預約$888</button>
       <p class="form-msg" id="formMsg" role="status"></p>
@@ -772,17 +775,9 @@
     const note = document.getElementById('f-note').value.trim();
     const issues = Array.from(form.querySelectorAll('input[name="issue"]:checked')).map(function (el) { return el.value; });
     const slots = Array.from(form.querySelectorAll('input[name="slot"]:checked')).map(function (el) { return el.value; });
-    const paymentEl = form.querySelector('input[name="payment"]:checked');
-    const payment = paymentEl ? paymentEl.value : '';
 
     if (!name || !line) {
       msg.textContent = '請填寫姓名與 LINE ID，才能讓小沐聯繫到你。';
-      msg.className = 'form-msg error';
-      return;
-    }
-
-    if (!payment) {
-      msg.textContent = '請選擇付款方式（匯款或 LINE Pay）。';
       msg.className = 'form-msg error';
       return;
     }
@@ -795,8 +790,7 @@
       '方便預約的時段：' + (slots.length ? slots.join('、') : '（未勾選，想直接討論時段）'),
       '想改善的金錢議題：' + (issues.length ? issues.join('、') : '（未勾選）'),
       '補充說明：' + (note || '（無）'),
-      '服務內容：40 分鐘・NT$888・線上遠距傳送',
-      '付款方式：' + payment
+      '服務內容：40 分鐘・NT$888・線上遠距傳送'
     ];
 
     const summary = lines.join('\n');
